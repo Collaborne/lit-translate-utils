@@ -1,0 +1,28 @@
+{
+  "description": "Utils to simplify using lit-translate (https://github.com/andreasbm/lit-translate)",
+  "homepage": "https://github.com/Collaborne/lit-translate-utils",
+  "name": "lit-translate-utils",
+  "version": "0.0.1",
+  "main": "dist/index",
+  "types": "dist/index.d.ts",
+  "author": "Ronny Roeller <ronny@nextapp.co>",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node_modules/typescript/bin/tsc",
+    "lint": "tslint -c tslint.json \"src/**/*.ts\"",
+    "test": "npm run lint && echo 'No tests yet'",
+    "prepublish": "npm run lint && npm run build"
+  },
+  "dependencies": {
+    "@appnest/lit-translate": "^1.1.15",
+    "intl-messageformat": "^2.2.0"
+  },
+  "devDependencies": {
+    "tslint": "^5.14.0",
+    "tslint-config-collaborne": "^0.0.4",
+    "typescript": "^3.3.4000"
+  }
+}
