@@ -40,10 +40,14 @@ export function setLocale(locale: string | null) {
 	// Use browser locale if not explcitely provided
 	const useLocale = locale || navigator.language || '';
 
-	const language = useLocale.replace(/[-_].*/, '');
+	const language = toLang(useLocale);
 
 	// Only allow picking locales for which we have translations
-	const useLanguage = supportedLangs.includes(language) ? language : DEFAULT_LOCALE;
+	const useLanguage = supportedLangs.includes(language) ? language : toLang(DEFAULT_LOCALE);
 
 	LitTranslate.use(useLanguage);
+}
+
+function toLang(locale: string): string {
+	return locale.replace(/[-_].*/, '');
 }
