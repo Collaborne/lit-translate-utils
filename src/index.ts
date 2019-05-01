@@ -48,6 +48,10 @@ export function setLocale(locale: string | null) {
 	LitTranslate.use(useLanguage);
 }
 
+export function getCurrentLang() {
+	return currentLang;
+}
+
 function toLang(locale: string): string {
 	return locale.replace(/[-_].*/, '');
 }
