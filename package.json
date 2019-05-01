@@ -2,7 +2,7 @@
   "description": "Utils to simplify using lit-translate (https://github.com/andreasbm/lit-translate)",
   "homepage": "https://github.com/Collaborne/lit-translate-utils",
   "name": "lit-translate-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index",
   "types": "dist/index.d.ts",
   "author": "Ronny Roeller <ronny@nextapp.co>",
