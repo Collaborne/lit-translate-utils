@@ -1,0 +1,10 @@
+{
+	"extends": "tsconfig-collaborne",
+	"compilerOptions": {
+		"declaration": true,
+		"lib": ["es2017", "dom"]
+	},
+	"include": [
+		"src"
+	]
+}

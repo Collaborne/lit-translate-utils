@@ -3,15 +3,13 @@
   "homepage": "https://github.com/Collaborne/lit-translate-utils",
   "name": "lit-translate-utils",
   "version": "1.0.2",
-  "main": "dist/index",
+  "main": "dist/index.js",
+  "module": "dist.es6/index.js",
   "types": "dist/index.d.ts",
   "author": "Ronny Roeller <ronny@nextapp.co>",
   "license": "Apache-2.0",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "node_modules/typescript/bin/tsc",
+    "build": "tsc && tsc -p tsconfig.es6.json",
     "lint": "tslint -c tslint.json \"src/**/*.ts\"",
     "test": "npm run lint && echo 'No tests yet'",
     "prepublish": "npm run lint && npm run build"
@@ -21,8 +19,16 @@
     "intl-messageformat": "^2.2.0"
   },
   "devDependencies": {
+    "tsconfig-collaborne": "^1.2.0",
     "tslint": "^5.14.0",
     "tslint-config-collaborne": "^0.0.4",
     "typescript": "^3.3.4000"
-  }
+  },
+  "files": [
+    "src/",
+    "tslint.json",
+    "tsconfig*.json",
+    "dist/",
+    "dist.es6/"
+  ]
 }
