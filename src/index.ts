@@ -37,7 +37,7 @@ export function init(translations: StringsByLocale) {
  * Sets the language of the application based on the viewer's locale.
  */
 export function setLocale(locale: string | null) {
-	// Use browser locale if not explcitely provided
+	// Use browser locale if not explicitely provided
 	const useLocale = locale || navigator.language || '';
 
 	const language = toLang(useLocale);
