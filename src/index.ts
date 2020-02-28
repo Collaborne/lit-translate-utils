@@ -32,7 +32,14 @@ export function init(translations: StringsByLocale) {
 	});
 
 	supportedLangs = Object.keys(translations);
-	return setLocale(DEFAULT_LOCALE);
+	return setLocale(currentLang || DEFAULT_LOCALE);
+}
+
+/** @visibleForTesting */
+export function reset() {
+	// @ts-ignore
+	currentLang = undefined;
+	supportedLangs = [];
 }
 
 /**

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { get } from '@appnest/lit-translate';
+import { get, Strings } from '@appnest/lit-translate';
 
-import { init, setLocale } from '../src';
+import { getCurrentLang, init, reset, setLocale } from '../src';
 
 function setNavigatorLanguage(language: string) {
 	// Our browser-harness allows changing this value.
@@ -11,20 +11,46 @@ function setNavigatorLanguage(language: string) {
 	window.navigator.language = language;
 }
 
+const TEST_TRANSLATIONS: {[locale: string]: Strings} = {
+	en: {
+		test: 'ENGLISH',
+	},
+	es: {
+		test: 'SPANISH',
+	},
+	fr: {
+		test: 'FRENCH',
+	},
+};
+
 describe('lit-translate-utils', () => {
+	beforeEach(reset);
+
+	describe('init', () => {
+		it('sets the current language', async () => {
+			expect(getCurrentLang()).to.be.undefined;
+			await init(TEST_TRANSLATIONS);
+			expect(getCurrentLang()).to.be.equal('en');
+		});
+		it('can be called again without changing the current language', async () => {
+			await init(TEST_TRANSLATIONS);
+			await setLocale('fr');
+			await init(TEST_TRANSLATIONS);
+
+			expect(getCurrentLang()).to.be.equal('fr');
+		});
+		it('can be called again and resets the current language if no longer available', async () => {
+			await init(TEST_TRANSLATIONS);
+			await setLocale('fr');
+			const {fr, ...translationsWithoutFrench} = TEST_TRANSLATIONS;
+			await init(translationsWithoutFrench);
+
+			expect(getCurrentLang()).to.be.equal('en');
+		});
+	});
 	describe('setLocale', () => {
 		beforeEach(async () => {
-			await init({
-				en: {
-					test: 'ENGLISH',
-				},
-				es: {
-					test: 'SPANISH',
-				},
-				fr: {
-					test: 'FRENCH',
-				},
-			});
+			await init(TEST_TRANSLATIONS);
 		});
 		it('prefers the given locale', async () => {
 			await setLocale('es');
