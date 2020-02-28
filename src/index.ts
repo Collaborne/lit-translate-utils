@@ -57,8 +57,16 @@ export async function setLocale(locale: string | null) {
 	// the default locale is actually not exactly what we have afterwards available.
 	// The quality values here ensure that the preferences are applied properly, a simple
 	// 'a,b,c' list means "any of these is fine".
-	const range = `${locale || ''},${navigator.language};q=0.9,${DEFAULT_LOCALE};q=0.8`;
-	const useLanguage = lookup(range, supportedLangs, 'i-default');
+	//
+	// The "lookup" algorithm as implemented by the accept-language-negotiator seems to prefer
+	// exact matches even with lower quality ratings, we want to have the quality to be the only
+	// relevant factor. As the user may have configured a browser language that matches exactly
+	// we therefore run two lookups.
+	let useLanguage = lookup(locale || navigator.language, supportedLangs, undefined);
+	if (!useLanguage) {
+		const range = `${navigator.language},${DEFAULT_LOCALE};q=0.9`;
+		useLanguage = lookup(range, supportedLangs, 'i-default')!;
+	}
 	return LitTranslate.use(useLanguage);
 }
 

@@ -77,6 +77,11 @@ describe('lit-translate-utils', () => {
 			await setLocale('no-EU');
 			expect(get('test')).to.be.equal('FRENCH');
 		});
+		it('prefers the given locale even with browser locale exact match', async () => {
+			setNavigatorLanguage('en');
+			await setLocale('es-EU');
+			expect(get('test')).to.be.equal('SPANISH');
+		});
 		it('uses the DEFAULT_LOCALE as fallback', async () => {
 			setNavigatorLanguage('fi-EU');
 			await setLocale('no-EU');
