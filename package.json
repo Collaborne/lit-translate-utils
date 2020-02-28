@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@appnest/lit-translate": "^1.1.15",
+    "accept-language-negotiator": "^1.2.0",
     "intl-messageformat": "^2.2.0"
   },
   "devDependencies": {

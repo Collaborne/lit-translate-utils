@@ -1,5 +1,7 @@
 import * as LitTranslate from '@appnest/lit-translate';
 
+import { lookup } from 'accept-language-negotiator';
+
 import IntlMessageFormat from 'intl-messageformat';
 window.IntlMessageFormat = IntlMessageFormat;
 
@@ -36,22 +38,18 @@ export function init(translations: StringsByLocale) {
 /**
  * Sets the language of the application based on the viewer's locale.
  */
-export function setLocale(locale: string | null) {
-	// Use browser locale if not explicitely provided
-	const useLocale = locale || navigator.language || '';
-
-	const language = toLang(useLocale);
-
-	// Only allow picking locales for which we have translations
-	const useLanguage = supportedLangs.includes(language) ? language : toLang(DEFAULT_LOCALE);
-
+export async function setLocale(locale: string | null) {
+	// Use browser locale if not explicitly provided
+	// Note that we want the DEFAULT_LOCALE to be part of the language preferences,
+	// not the "if you have nothing else"-fallback: For some historic reasons
+	// the default locale is actually not exactly what we have afterwards available.
+	// The quality values here ensure that the preferences are applied properly, a simple
+	// 'a,b,c' list means "any of these is fine".
+	const range = `${locale || ''},${navigator.language};q=0.9,${DEFAULT_LOCALE};q=0.8`;
+	const useLanguage = lookup(range, supportedLangs, 'i-default');
 	return LitTranslate.use(useLanguage);
 }
 
 export function getCurrentLang() {
 	return currentLang;
-}
-
-function toLang(locale: string): string {
-	return locale.replace(/[-_].*/, '');
 }
