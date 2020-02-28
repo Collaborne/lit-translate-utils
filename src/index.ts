@@ -30,7 +30,7 @@ export function init(translations: StringsByLocale) {
 	});
 
 	supportedLangs = Object.keys(translations);
-	setLocale(DEFAULT_LOCALE);
+	return setLocale(DEFAULT_LOCALE);
 }
 
 /**
@@ -45,7 +45,7 @@ export function setLocale(locale: string | null) {
 	// Only allow picking locales for which we have translations
 	const useLanguage = supportedLangs.includes(language) ? language : toLang(DEFAULT_LOCALE);
 
-	LitTranslate.use(useLanguage);
+	return LitTranslate.use(useLanguage);
 }
 
 export function getCurrentLang() {
