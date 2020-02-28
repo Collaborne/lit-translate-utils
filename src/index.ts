@@ -11,6 +11,7 @@ interface StringsByLocale {
 	[locale: string]: LitTranslate.Strings;
 }
 
+let currentLocale: string | null;
 let currentLang: string;
 let supportedLangs: string[] = [];
 
@@ -32,11 +33,13 @@ export function init(translations: StringsByLocale) {
 	});
 
 	supportedLangs = Object.keys(translations);
-	return setLocale(currentLang || DEFAULT_LOCALE);
+	return setLocale(currentLocale || DEFAULT_LOCALE);
 }
 
 /** @visibleForTesting */
 export function reset() {
+	// @ts-ignore
+	currentLocale = undefined;
 	// @ts-ignore
 	currentLang = undefined;
 	supportedLangs = [];
@@ -46,6 +49,8 @@ export function reset() {
  * Sets the language of the application based on the viewer's locale.
  */
 export async function setLocale(locale: string | null) {
+	currentLocale = locale;
+
 	// Use browser locale if not explicitly provided
 	// Note that we want the DEFAULT_LOCALE to be part of the language preferences,
 	// not the "if you have nothing else"-fallback: For some historic reasons
@@ -57,6 +62,21 @@ export async function setLocale(locale: string | null) {
 	return LitTranslate.use(useLanguage);
 }
 
+/**
+ * Return the currently selected language
+ *
+ * The returned value is guaranteed to match one of the available entries
+ * in the translations provided to `init`.
+ */
 export function getCurrentLang() {
 	return currentLang;
+}
+
+/**
+ * Return the currently selected locale
+ *
+ * @returns the value last provided to `setLocale` last
+ */
+export function getLocale() {
+	return currentLocale;
 }
