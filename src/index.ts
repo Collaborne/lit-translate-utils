@@ -8,7 +8,7 @@ window.IntlMessageFormat = IntlMessageFormat;
 const DEFAULT_LOCALE = 'en-US';
 
 interface StringsByLocale {
-	[key: string]: LitTranslate.Strings;
+	[locale: string]: LitTranslate.Strings;
 }
 
 let currentLang: string;
