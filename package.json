@@ -15,8 +15,7 @@
   "scripts": {
     "build": "tsc && tsc -p tsconfig.es6.json",
     "lint": "tslint -c tslint.json \"src/**/*.ts\"",
-    "test": "env TS_NODE_FILES=true node ${_NODE_ARGS} $(npm bin)/nyc mocha",
-    "prepublish": "npm run lint && npm run build"
+    "test": "env TS_NODE_FILES=true node ${_NODE_ARGS} $(npm bin)/nyc mocha"
   },
   "dependencies": {
     "@appnest/lit-translate": "^1.1.15",
