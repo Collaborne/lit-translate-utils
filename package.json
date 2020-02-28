@@ -8,6 +8,10 @@
   "types": "dist/index.d.ts",
   "author": "Ronny Roeller <ronny@nextapp.co>",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Collaborne/lit-translate-utils.git"
+  },
   "scripts": {
     "build": "tsc && tsc -p tsconfig.es6.json",
     "lint": "tslint -c tslint.json \"src/**/*.ts\"",
