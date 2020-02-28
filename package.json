@@ -2,7 +2,7 @@
   "description": "Utils to simplify using lit-translate (https://github.com/andreasbm/lit-translate)",
   "homepage": "https://github.com/Collaborne/lit-translate-utils",
   "name": "lit-translate-utils",
-  "version": "2.0.0-0",
+  "version": "2.0.0",
   "main": "dist/index.js",
   "module": "dist.es6/index.js",
   "types": "dist/index.d.ts",
