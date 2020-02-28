@@ -3,5 +3,6 @@
 /dist.es6/
 
 /.vscode/
+/.nyc_output/
 
 yarn.lock

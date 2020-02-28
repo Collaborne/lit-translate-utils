@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc && tsc -p tsconfig.es6.json",
     "lint": "tslint -c tslint.json \"src/**/*.ts\"",
-    "test": "npm run lint && echo 'No tests yet'",
+    "test": "env TS_NODE_FILES=true node ${_NODE_ARGS} $(npm bin)/nyc mocha",
     "prepublish": "npm run lint && npm run build"
   },
   "dependencies": {
@@ -23,6 +23,14 @@
     "intl-messageformat": "^2.2.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.9",
+    "@types/mocha": "^7.0.1",
+    "chai": "^4.2.0",
+    "esm": "^3.2.25",
+    "mocha": "^7.0.0",
+    "nyc": "^15.0.0",
+    "source-map-support": "^0.5.16",
+    "ts-node": "^8.6.2",
     "tsconfig-collaborne": "^1.2.0",
     "tslint": "^5.14.0",
     "tslint-config-collaborne": "^0.0.4",
@@ -34,5 +42,29 @@
     "tsconfig*.json",
     "dist/",
     "dist.es6/"
-  ]
+  ],
+  "mocha": {
+    "extension": [
+      "ts"
+    ],
+    "spec": "test/**/*.spec.ts",
+    "recursive": true,
+    "require": [
+      "esm",
+      "ts-node/register",
+      "source-map-support/register"
+    ],
+    "file": "test/browser-harness.js",
+    "interface": "bdd"
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.d.ts",
+      ".*/",
+      "dist/",
+      "dist.*/",
+      "test/"
+    ],
+    "all": true
+  }
 }
