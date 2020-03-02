@@ -1,6 +1,6 @@
 import * as LitTranslate from '@appnest/lit-translate';
 
-import { lookup } from 'accept-language-negotiator/src';
+import { lookup } from 'accept-language-negotiator';
 
 import IntlMessageFormat from 'intl-messageformat';
 window.IntlMessageFormat = IntlMessageFormat;

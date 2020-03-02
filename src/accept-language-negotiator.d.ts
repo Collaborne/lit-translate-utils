@@ -1,4 +1,4 @@
-declare module 'accept-language-negotiator/src' {
+declare module 'accept-language-negotiator' {
 	export function languagePriorityList(range: string): Array<{tag: string, quality: number}>;
 	export function basicFilter(range: string, languageTags: string[]): string[];
 	export function extendedFilter(range: string, languageTags: string[]): string[];
