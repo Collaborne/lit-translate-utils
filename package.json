@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@appnest/lit-translate": "^1.1.15",
-    "accept-language-negotiator": "^1.2.1",
-    "intl-messageformat": "^2.2.0"
+    "intl-messageformat": "^2.2.0",
+    "langtag-utils": "^2.0.1"
   },
   "devDependencies": {
     "@types/chai": "^4.2.9",

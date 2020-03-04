@@ -1,6 +1,6 @@
 import * as LitTranslate from '@appnest/lit-translate';
 
-import { lookup } from 'accept-language-negotiator';
+import { lookup } from 'langtag-utils';
 
 import IntlMessageFormat from 'intl-messageformat';
 window.IntlMessageFormat = IntlMessageFormat;
@@ -45,6 +45,17 @@ export function reset() {
 	supportedLangs = [];
 }
 
+function isNonEmptyString(s: string|null): s is string {
+	return Boolean(s);
+}
+
+/**
+ * Compare function to sort tags by "longest first"
+ */
+function byTagLength(t1: string, t2: string): number {
+	return t1.length > t2.length ? -1 : t1.length === t2.length ? 0 : 1;
+}
+
 /**
  * Sets the language of the application based on the viewer's locale.
  */
@@ -55,18 +66,11 @@ export async function setLocale(locale: string | null) {
 	// Note that we want the DEFAULT_LOCALE to be part of the language preferences,
 	// not the "if you have nothing else"-fallback: For some historic reasons
 	// the default locale is actually not exactly what we have afterwards available.
-	// The quality values here ensure that the preferences are applied properly, a simple
-	// 'a,b,c' list means "any of these is fine".
-	//
-	// The "lookup" algorithm as implemented by the accept-language-negotiator seems to prefer
-	// exact matches even with lower quality ratings, we want to have the quality to be the only
-	// relevant factor. As the user may have configured a browser language that matches exactly
-	// we therefore run two lookups.
-	let useLanguage = lookup(locale || navigator.language, supportedLangs, undefined);
-	if (!useLanguage) {
-		const range = `${navigator.language},${DEFAULT_LOCALE};q=0.9`;
-		useLanguage = lookup(range, supportedLangs, 'i-default')!;
-	}
+	const ranges = [locale, navigator.language, DEFAULT_LOCALE].filter(isNonEmptyString);
+	// Sort the tags by length, so that we find the _longest_ matching tag
+	// See https://github.com/hupe1980/langtag-utils/issues/4
+	const tags = supportedLangs.sort(byTagLength);
+	const useLanguage = lookup(tags, ranges);
 	return LitTranslate.use(useLanguage);
 }
 
