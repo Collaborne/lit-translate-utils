@@ -32,8 +32,8 @@
     "source-map-support": "^0.5.16",
     "ts-node": "^8.6.2",
     "tsconfig-collaborne": "^1.2.0",
-    "tslint": "^5.14.0",
-    "tslint-config-collaborne": "^0.0.4",
+    "tslint": "^6.1.2",
+    "tslint-config-collaborne": "^1.0.0",
     "typescript": "^3.3.4000"
   },
   "files": [
